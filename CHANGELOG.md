@@ -13,6 +13,7 @@ _Changes to be released_
 #### Bug fixes
 
 - Stop responding with `null` when a view doesn't return anything ([#154](https://github.com/rougeth/bottery/issues/154))
+- Stop the loop when bot is unable to retrieve updates from Telegram ([#179](https://github.com/rougeth/bottery/issues/179))
 
 #### Docs
 

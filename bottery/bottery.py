@@ -80,8 +80,14 @@ class Bottery:
             port=port,
         ))
 
+    def exception_handler(self, loop, context):
+        click.echo(context.get('exception'))
+        loop.default_exception_handler(context)
+        loop.stop()
+
     def configure(self):
         self.loop.run_until_complete(self.configure_platforms())
+        self.loop.set_exception_handler(self.exception_handler)
 
     def run(self, server_port):
         click.echo('{now}\n{bottery} version {version}'.format(

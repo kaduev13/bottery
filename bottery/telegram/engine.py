@@ -85,6 +85,13 @@ class TelegramEngine(BaseEngine):
 
         updates = await self.api.get_updates(**payload)
 
+        if not updates.get('ok'):
+            msg = '[{}] Unable to receive updates, data={}, error'.format(
+                self.platform,
+                updates
+            )
+            raise Exception(msg)
+
         # If polling request returned at least one update, use its ID
         # to define the offset.
         if len(updates.get('result', [])):
