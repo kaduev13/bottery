@@ -104,5 +104,5 @@ class Bottery:
         self.loop.run_forever()
 
     def stop(self):
-        self.session.close()
-        self.loop.close()
+        asyncio.gather(self.session.close())
+        self.loop.stop()
