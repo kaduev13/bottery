@@ -83,6 +83,8 @@ class Bottery:
     def exception_handler(self, loop, context):
         click.echo(context.get('exception'))
         loop.default_exception_handler(context)
+        # We don't use Bottery.stop() here because the current implementation
+        # won't stop the running loop.
         loop.stop()
 
     def configure(self):
