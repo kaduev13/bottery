@@ -4,6 +4,7 @@ import logging
 from aiohttp import web
 
 from bottery.conf import settings
+from bottery.exceptions import PlatformError
 from bottery.message import Message
 from bottery.platforms import BaseEngine
 from bottery.telegram import TelegramAPI
@@ -86,11 +87,10 @@ class TelegramEngine(BaseEngine):
         updates = await self.api.get_updates(**payload)
 
         if not updates.get('ok'):
-            msg = '[{}] Unable to receive updates, data={}, error'.format(
+            raise PlatformError(
                 self.platform,
-                updates
+                'Unable to receive updates, data={}'.format(updates)
             )
-            raise Exception(msg)
 
         # If polling request returned at least one update, use its ID
         # to define the offset.
