@@ -101,8 +101,16 @@ class Bottery:
         #     sys.exit(1)
 
         click.echo('Quit the bot with CONTROL-C')
-        self.loop.run_forever()
+
+        try:
+            self.loop.run_forever()
+        except KeyboardInterrupt:
+            self.stop()
+        finally:
+            self.cleanup()
 
     def stop(self):
-        asyncio.gather(self.session.close())
         self.loop.stop()
+
+    def cleanup(self):
+        self.loop.run_until_complete(self.session.close())

@@ -80,8 +80,4 @@ def import_string(import_name):
 @click.option('--port', default=7000, type=int)
 def run(bot_module, port):
     bot = Bottery()
-
-    try:
-        bot.run(server_port=port)
-    except KeyboardInterrupt:
-        bot.stop()
+    bot.run(server_port=port)
